@@ -1,5 +1,6 @@
 class Api::V1::CartsController < ApplicationController
   before_action :set_cart, only: [:show, :update, :destroy]
+  before_action :set_user, only: [:get_cart]
   
   # GET /carts
   def index
@@ -36,11 +37,20 @@ class Api::V1::CartsController < ApplicationController
    @cart.destroy
   end
 
+  def get_cart
+    @cart = @user.cart
+    render json: @cart
+  end
+
   private
   
   # Use callbacks to share common setup or constraints between actions.
   def set_cart
    @cart = cart_params.find(params[:id])
+  end
+
+  def set_user
+    @user = User.find(params[:user_id])
   end
   
   # Only allow a trusted parameter “white list” through.

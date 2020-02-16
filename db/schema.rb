@@ -13,7 +13,7 @@
 ActiveRecord::Schema.define(version: 2020_02_15_054121) do
 
   create_table "carts", force: :cascade do |t|
-    t.string "name"
+    t.string "name", null: false
     t.integer "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -29,7 +29,7 @@ ActiveRecord::Schema.define(version: 2020_02_15_054121) do
   end
 
   create_table "products", force: :cascade do |t|
-    t.string "name"
+    t.string "name", null: false
     t.integer "category_id", null: false
     t.string "description"
     t.decimal "price"

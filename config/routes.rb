@@ -1,15 +1,14 @@
 Rails.application.routes.draw do
-  resources :carts
   namespace :api do
     namespace :v1 do
-      resources :products 
-      
+      resources :carts
+      resources :products
       resources :categories
-      # resources :categories do
-      #   get '/api/v1/categories/:category_name', to: "categories#specific_products"
-      # end
+      match 'specific_products/:category_name' => 'products#specific_products', :via => :get
+      match '/add_product_to_cart/:cart_name' => 'products#add_product_to_cart', :via => :post
+      match 'specific_cart/:user_email' => 'carts#get_cart', :via => :get
     end
   end
-  get '/api/v1/products/:category_name', to: "api/v1/categories#specific_products"
+  
   post 'authenticate', to: 'authentication#authenticate'
 end
